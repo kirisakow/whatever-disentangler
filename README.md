@@ -19,4 +19,4 @@ remote_disentangler = wd.RemoteDisentangler(endpoint='https://crac.ovh/fix_legac
 * When you know which encodings you want to try, even without knowing what the expected string looks like
 * Tough cases which need two-step detangling
 
-# To see `whatever_disentangler` in action, please see [README.ipynb]([https://](https://github.com/kirisakow/whatever_disentangler/blob/main/README.ipynb))
+# To see `whatever_disentangler` in action, please see [README.ipynb](https://github.com/kirisakow/whatever_disentangler/blob/main/README.ipynb)
