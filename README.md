@@ -1,6 +1,6 @@
-# `whatever_disentangler` is a brute-force legacy encodings decoder
+# `whatever_disentangler` is a brute-force disentangler for legacy encodings
 
-* It is available as both a package (soon officially, let's hope so) and a self-hosted web service
+* It is available as both a self-hosted web service and a package (soon officially, let's hope so!)
 * It supports [as many encodings as Python itself](https://docs.python.org/3/library/codecs.html#standard-encodings)
 
 ```py
