@@ -35,8 +35,6 @@ class Disentangler:
                 standard_encodings = STANDARD_ENCODINGS.splitlines()
                 return standard_encodings
 
-        self.expected_str = expected_str
-        self.recursivity_depth = recursivity_depth
         cache = []
         def _fix_legacy_encoding(str_to_fix: str, _encoding_from: list, _encoding_to: list, expected_str: str, recursivity_depth: int):
             for enc_from in _encoding_from:
@@ -67,6 +65,9 @@ class Disentangler:
                         if recursivity_depth > 1:
                             decremented_depth = recursivity_depth - 1
                             yield from _fix_legacy_encoding(fixed_str, _encoding_from, _encoding_to, expected_str, decremented_depth)
+
+        self.expected_str = expected_str
+        self.recursivity_depth = recursivity_depth
 
         yield from _fix_legacy_encoding(str_to_fix, _resolve_encodings(encoding_from), _resolve_encodings(encoding_to), expected_str, recursivity_depth)
 
