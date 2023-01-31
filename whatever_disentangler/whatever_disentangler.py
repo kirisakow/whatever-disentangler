@@ -5,7 +5,7 @@ import time
 from urllib.parse import urlencode, unquote
 from urllib.request import urlretrieve
 
-from constants import STANDARD_ENCODINGS
+from whatever_disentangler.constants import STANDARD_ENCODINGS
 
 
 # si environnement MS-DOS : démarrer colorama
