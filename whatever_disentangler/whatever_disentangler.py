@@ -1,12 +1,21 @@
+import colorama
 import requests
 import os, sys
+import time
 from urllib.parse import urlencode, unquote
 from urllib.request import urlretrieve
 
 from constants import STANDARD_ENCODINGS
 
+
+# si environnement MS-DOS : démarrer colorama
+if os.name == 'nt' or sys.platform == 'win32':
+    colorama.init()
+
+
 class Disentangler:
     def __init__(self):
+        self.expected_str = None
         self.recursivity_depth = 1
 
 
@@ -23,10 +32,10 @@ class Disentangler:
             if isinstance(enc, list):
                 return enc
             elif enc is None:
-                # Copied from https://docs.python.org/3/library/codecs.html#standard-encodings
                 standard_encodings = STANDARD_ENCODINGS.splitlines()
                 return standard_encodings
 
+        self.expected_str = expected_str
         self.recursivity_depth = recursivity_depth
         cache = []
         def _fix_legacy_encoding(str_to_fix: str, _encoding_from: list, _encoding_to: list, expected_str: str, recursivity_depth: int):
@@ -67,17 +76,23 @@ class Disentangler:
             indent_width = 4 * (self.recursivity_depth - int(d['recursivity_depth']))
             indent = indent_width * ' '
             indent += '-> ' if indent_width > 0 else ''
-            s = f"{indent}{d['str_to_fix']!r} ({d['encoding_from']!r}) -> {d['fixed_str']!r} ({d['encoding_to']!r})"
+            match = self.expected_str is not None and d['fixed_str'] == self.expected_str
+            fixed_str = d['fixed_str'] if not match else colorama.Fore.GREEN + d['fixed_str'] + colorama.Style.RESET_ALL
+            s = f"{indent}{d['str_to_fix']!r} ({d['encoding_from']!r}) -> '{fixed_str}' ({d['encoding_to']!r})"
             print(s)
+            if match:
+                time.sleep(1)
 
 
 class RemoteDisentangler:
     def __init__(self, endpoint: str = None):
         self.endpoint = endpoint
+        self.expected_str = None
         self.recursivity_depth = 1
 
 
     async def fetch_response(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str=None, recursivity_depth=1):
+        self.expected_str = expected_str
         self.recursivity_depth = recursivity_depth
         qparams = {}
         params = [str_to_fix, encoding_from, encoding_to, expected_str, recursivity_depth]
@@ -98,5 +113,7 @@ class RemoteDisentangler:
             indent_width = 4 * (self.recursivity_depth - int(d['recursivity_depth']))
             indent = indent_width * ' '
             indent += '-> ' if indent_width > 0 else ''
-            s = f"{indent}{d['str_to_fix']!r} ({d['encoding_from']!r}) -> {d['fixed_str']!r} ({d['encoding_to']!r})"
+            match = self.expected_str is not None and d['fixed_str'] == self.expected_str
+            fixed_str = d['fixed_str'] if not match else colorama.Fore.GREEN + d['fixed_str'] + colorama.Style.RESET_ALL
+            s = f"{indent}{d['str_to_fix']!r} ({d['encoding_from']!r}) -> '{fixed_str}' ({d['encoding_to']!r})"
             print(s)
