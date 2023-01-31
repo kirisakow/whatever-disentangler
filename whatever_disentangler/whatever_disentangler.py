@@ -7,7 +7,7 @@ from constants import STANDARD_ENCODINGS
 
 class Disentangler:
     def __init__(self):
-        pass
+        self.recursivity_depth = 1
 
 
     def disentangle(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str=None, recursivity_depth=1):
@@ -27,6 +27,7 @@ class Disentangler:
                 standard_encodings = STANDARD_ENCODINGS.splitlines()
                 return standard_encodings
 
+        self.recursivity_depth = recursivity_depth
         cache = []
         def _fix_legacy_encoding(str_to_fix: str, _encoding_from: list, _encoding_to: list, expected_str: str, recursivity_depth: int):
             for enc_from in _encoding_from:
@@ -62,10 +63,8 @@ class Disentangler:
 
 
     def flatten_legibly(self, result_generator) -> None:
-        max_depth = 1
         for d in result_generator:
-            max_depth = max(max_depth, int(d['recursivity_depth']))
-            indent_width = 4 * (max_depth - int(d['recursivity_depth']))
+            indent_width = 4 * (self.recursivity_depth - int(d['recursivity_depth']))
             indent = indent_width * ' '
             indent += '-> ' if indent_width > 0 else ''
             s = f"{indent}{d['str_to_fix']!r} ({d['encoding_from']!r}) -> {d['fixed_str']!r} ({d['encoding_to']!r})"
@@ -75,9 +74,11 @@ class Disentangler:
 class RemoteDisentangler:
     def __init__(self, endpoint: str = None):
         self.endpoint = endpoint
+        self.recursivity_depth = 1
 
 
     async def fetch_response(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str=None, recursivity_depth=1):
+        self.recursivity_depth = recursivity_depth
         qparams = {}
         params = [str_to_fix, encoding_from, encoding_to, expected_str, recursivity_depth]
         param_names = ['str_to_fix', 'encoding_from', 'encoding_to', 'expected_str', 'recursivity_depth']
@@ -93,9 +94,8 @@ class RemoteDisentangler:
         if payload in (None, []):
             print(f"Got an empty response {payload!r} ({type(payload).__name__}) for the request {unquote(req_url)!r}")
             return
-        max_depth = max([int(d['recursivity_depth']) for d in payload]) if payload else 1
         for d in payload:
-            indent_width = 4 * (max_depth - int(d['recursivity_depth']))
+            indent_width = 4 * (self.recursivity_depth - int(d['recursivity_depth']))
             indent = indent_width * ' '
             indent += '-> ' if indent_width > 0 else ''
             s = f"{indent}{d['str_to_fix']!r} ({d['encoding_from']!r}) -> {d['fixed_str']!r} ({d['encoding_to']!r})"
