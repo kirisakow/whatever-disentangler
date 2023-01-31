@@ -1,4 +1,5 @@
-ascii
+# Copied from https://docs.python.org/3/library/codecs.html#standard-encodings
+STANDARD_ENCODINGS = """ascii
 big5
 big5hkscs
 cp037
@@ -95,3 +96,4 @@ utf_16_le
 utf_7
 utf_8
 utf_8_sig
+"""

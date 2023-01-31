@@ -3,6 +3,7 @@ import os, sys
 from urllib.parse import urlencode, unquote
 from urllib.request import urlretrieve
 
+from constants import STANDARD_ENCODINGS
 
 class Disentangler:
     def __init__(self):
@@ -23,8 +24,7 @@ class Disentangler:
                 return enc
             elif enc is None:
                 # Copied from https://docs.python.org/3/library/codecs.html#standard-encodings
-                with open('whatever_disentangler/assets/standard_encodings.txt', 'r') as f:
-                    standard_encodings = f.read().splitlines()
+                standard_encodings = STANDARD_ENCODINGS.splitlines()
                 return standard_encodings
 
         cache = []
