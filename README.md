@@ -28,7 +28,11 @@ remote_disentangler.flatten_legibly(response_obj)
 
 ### As part of Python code
 
-To see `whatever_disentangler` in action, please see [README.ipynb](https://github.com/kirisakow/whatever_disentangler/blob/main/README.ipynb)
+To see `whatever_disentangler` in action,
+* have a look at [README.ipynb](https://github.com/kirisakow/whatever_disentangler/blob/main/README.ipynb)
+* play live with the HTTP API:
+  * https://crac.ovh/fix_legacy_encoding?str_to_fix=GocÅ‚awski&encoding_from=&encoding_to=&expected_str=Gocławski&recursivity_depth=
+  * https://crac.ovh/fix_legacy_encoding?str_to_fix=ÃƒÂ©chÃƒÂ©ancier&encoding_from=&encoding_to=&expected_str=échéancier&recursivity_depth=2
 
 ### As a CLI command
 
