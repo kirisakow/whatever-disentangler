@@ -19,7 +19,7 @@ class Disentangler:
         self.recursivity_depth = 1
 
 
-    def disentangle(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str=None, recursivity_depth=1):
+    def disentangle(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str: str=None, recursivity_depth: int=1):
         if str_to_fix is None or str_to_fix.strip() == '':
             raise ValueError(f"The required parameter str_to_fix (string to fix) is empty.")
 
@@ -91,7 +91,7 @@ class RemoteDisentangler:
         self.recursivity_depth = 1
 
 
-    async def fetch_response(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str=None, recursivity_depth=1):
+    async def fetch_response(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str: str=None, recursivity_depth: int=1):
         self.expected_str = expected_str
         self.recursivity_depth = recursivity_depth
         qparams = {}
