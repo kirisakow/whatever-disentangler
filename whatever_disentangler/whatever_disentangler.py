@@ -2,6 +2,7 @@ import colorama
 import requests
 import os, sys
 import time
+import types
 from urllib.parse import urlencode, unquote
 from urllib.request import urlretrieve
 
@@ -18,8 +19,7 @@ class Disentangler:
         self.expected_str = None
         self.recursivity_depth = 1
 
-
-    def disentangle(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str: str=None, recursivity_depth: int=1):
+    def disentangle(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str: str=None, recursivity_depth: int=1) -> types.GeneratorType:
         if str_to_fix is None or str_to_fix.strip() == '':
             raise ValueError(f"The required parameter str_to_fix (string to fix) is empty.")
 
@@ -72,7 +72,7 @@ class Disentangler:
         yield from _fix_legacy_encoding(str_to_fix, _resolve_encodings(encoding_from), _resolve_encodings(encoding_to), expected_str, recursivity_depth)
 
 
-    def flatten_legibly(self, result_generator) -> None:
+    def flatten_legibly(self, result_generator: types.GeneratorType) -> None:
         for d in result_generator:
             indent_width = 4 * (self.recursivity_depth - int(d['recursivity_depth']))
             indent = indent_width * ' '
