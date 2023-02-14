@@ -134,10 +134,31 @@ class RemoteDisentangler:
 
 
 def main():
+    usage = """
+
+- invoke as a module:
+
+    python -m whatever_disentangler "string to fix" [options]
+
+or
+
+    python -m whatever_disentangler [options] "string to fix"
+
+- invoke as a standalone script:
+
+    python whatever_disentangler.py "string to fix" [options]
+
+or
+
+    python whatever_disentangler.py [options] "string to fix"
+
+Run with -h (--help) option to print a complete help notice.
+-------------------------------------------------------------"""
     #
     # Get user-defined params
     #
-    parser = argparse.ArgumentParser(prog="""python -m whatever_disentangler""", description="""`whatever_disentangler` is a brute-force disentangler for legacy encodings. At the core, what it does is: `str_to_fix.encode(encoding_from).decode(encoding_to)` with `encoding_from` and `encoding_to` being one or more of all the encodings supported by Python (see https://docs.python.org/3/library/codecs.html#standard-encodings for details), only skipping the cases where `encoding_from` is `encoding_to`.""", epilog="Source code: https://github.com/kirisakow/whatever_disentangler")
+    parser = argparse.ArgumentParser(prog="whatever_disentangler", usage=usage,
+    description="""`whatever_disentangler` is a brute-force disentangler for legacy encodings. At the core, what it does is: `str_to_fix.encode(encoding_from).decode(encoding_to)` with `encoding_from` and `encoding_to` being one or more of all the encodings supported by Python (see https://docs.python.org/3/library/codecs.html#standard-encodings for details), only skipping the cases where `encoding_from` is `encoding_to`.""", epilog="Source code: https://github.com/kirisakow/whatever_disentangler")
 
     parser.add_argument('str_to_fix', default=None, type=str, help="(required) Garbled string to fix. As a positional argument, it takes no key, only the value; as the only positional argument, it goes either to the very first or the very last position of the command line (prefer the beginning though, otherwise it may be mistaken for the value of those other arguments that can take multiple values). If the string contains spaces, enclose it in quotation marks.")
 
