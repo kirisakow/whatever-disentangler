@@ -19,12 +19,10 @@ parser.add_argument('--expected-str', '--expected_str', default=None, type=str, 
 parser.add_argument('--recursivity-depth', '--recursivity_depth', default=1, type=int, nargs=1, help="(optional, default: %(default)s) If you are not satisfied with the result with every possible encoding (or your selection of encodings), set this option to 2, which will result in that every possible already decoded result will be treated as if it were `str_to_fix` and taken to another tour of every possible encoding (or your selection of encodings). This will result in more output, slower run time and, possibly, a crash (with `RecursionError: maximum recursion depth exceeded` or a `MemoryError: Stack overflow`), therefore use with caution for values 3 or higher.")
 
 args = parser.parse_args()
-if (str_to_fix := args.str_to_fix).strip() == '':
-    sys.exit(parser.print_usage())
 
 disentangler = wd.Disentangler()
 result_as_generator = disentangler.disentangle(
-    str_to_fix=str_to_fix,
+    str_to_fix=args.str_to_fix,
     encoding_from=args.encoding_from,
     encoding_to=args.encoding_to,
     expected_str=args.expected_str[0],
