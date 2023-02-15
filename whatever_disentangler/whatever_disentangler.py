@@ -7,7 +7,11 @@ import time
 import types
 from urllib.parse import urlencode, unquote
 from urllib.request import urlretrieve
-
+sys.path.append(
+    os.path.abspath(
+        os.path.dirname(__file__),
+    )
+)
 from constants import STANDARD_ENCODINGS
 
 
