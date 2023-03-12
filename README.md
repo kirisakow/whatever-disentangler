@@ -1,3 +1,5 @@
+**WARNING** This library is still under development and intended for experimental purposes only.
+
 # `whatever_disentangler` is a brute-force disentangler for legacy encodings
 
 * It is available as both a self-hosted web service and a package (soon officially, let's hope so!)
