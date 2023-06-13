@@ -6,16 +6,16 @@
 * It supports [as many encodings as Python itself](https://docs.python.org/3/library/codecs.html#standard-encodings)
 
 ```py
-from whatever_disentangler import whatever_disentangler as wd
+from whatever_disentangler import Disentangler, RemoteDisentangler
 
 # this one is an offline disentangler:
-disentangler = wd.Disentangler()
+disentangler = Disentangler()
 disentangler.flatten_legibly(
   disentangler.disentangle(str_to_fix="боз▌з╤з╙з╤ б░з▄зтз╤Б0Ж3з▀Б0┌1! Б0┘5з╓зтзрз┴з▐ зуз▌з╤з╙з╤!", expected_str="Слава Україні! Героям слава!", recursivity_depth=2)
 )
 
 # and this one is remote: it calls a homemade REST API:
-remote_disentangler = wd.RemoteDisentangler(endpoint='https://crac.ovh/fix_legacy_encoding')
+remote_disentangler = RemoteDisentangler(endpoint='https://crac.ovh/fix_legacy_encoding')
 response_obj = await remote_disentangler.fetch_response(str_to_fix="ŢčŢ»ŢąŢ¦ ŢÓŢ¦Ţ®Ţ˘Ţ´Ţ·ŢµŢş! ŢčŢ»ŢąŢ¦ ŢąŢ¦ŢŔŢ°Ţ˘!", expected_str="Жыве Беларусь! Жыве вечна!", recursivity_depth=2)
 remote_disentangler.flatten_legibly(response_obj)
 ```
