@@ -3,11 +3,11 @@ from setuptools import find_packages, setup
 setup(
     name='whatever_detangler',
     version='0.0.1',
-    url='https://github.com/hail-is/hail.git',
-    author='Hail Team',
-    author_email='hail@broadinstitute.org',
-    description='Utils for building services',
-    package_data={"whatever_detangler": ["py.typed"]},
+    author='Kiril Isakov',
+    author_email='kirix.isakov@gmail.com',
+    url='https://github.com/kirisakow/whatever_disentangler',
+    description='brute-force disentangler for legacy encodings',
     packages=find_packages(),
-    include_package_data=True,
+    install_requires=[],
+    python_requires='>=3.9'
 )
