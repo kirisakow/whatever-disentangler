@@ -6,7 +6,7 @@ import sys
 import time
 import types
 from urllib.parse import urlencode, unquote
-from whatever_disentangler_constants import STANDARD_ENCODINGS
+from wd_constants.wd_constants import STANDARD_ENCODINGS
 
 
 # run colorama.init() in MS-DOS-based Windows
