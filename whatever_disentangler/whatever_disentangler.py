@@ -6,11 +6,10 @@ import sys
 import time
 import types
 from urllib.parse import urlencode, unquote
-from urllib.request import urlretrieve
 from whatever_disentangler_constants import STANDARD_ENCODINGS
 
 
-# si environnement MS-DOS : démarrer colorama
+# run colorama.init() in MS-DOS-based Windows
 if os.name == 'nt' or sys.platform == 'win32':
     colorama.init()
 
@@ -23,7 +22,7 @@ class Disentangler:
     def disentangle(self, *, str_to_fix: str, encoding_from=None, encoding_to=None, expected_str: str = None, recursivity_depth: int = 1) -> types.GeneratorType:
         if str_to_fix is None or str_to_fix.strip() == '':
             raise ValueError(
-                f"The required parameter str_to_fix (string to fix) is empty."
+                "The required parameter str_to_fix (string to fix) is empty."
             )
 
         def _fix(str_to_fix: str, encoding_from: str, encoding_to: str):
@@ -156,7 +155,7 @@ Run with -h (--help) option to print a complete help notice.
     #
     # Get user-defined params
     #
-    parser = argparse.ArgumentParser(prog="whatever_disentangler", usage=usage,
+    parser = argparse.ArgumentParser(prog="whatever_disentangler.py", usage=usage,
                                      description="""`whatever_disentangler` is a brute-force disentangler for legacy encodings. At the core, what it does is: `str_to_fix.encode(encoding_from).decode(encoding_to)` with `encoding_from` and `encoding_to` being one or more of all the encodings supported by Python (see https://docs.python.org/3/library/codecs.html#standard-encodings for details), only skipping the cases where `encoding_from` is `encoding_to`.""",
                                      epilog="Source code: https://github.com/kirisakow/whatever_disentangler")
 
@@ -177,7 +176,7 @@ Run with -h (--help) option to print a complete help notice.
 
     args = parser.parse_args()
 
-    disentangler = wd.Disentangler()
+    disentangler = Disentangler()
     result_as_generator = disentangler.disentangle(
         str_to_fix=args.str_to_fix,
         encoding_from=args.encoding_from,
