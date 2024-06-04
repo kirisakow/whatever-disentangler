@@ -51,22 +51,20 @@ poetry install
 ```
 Use `whatever-disentangler` as both offline executable or a remote HTTP API caller:
 ```py
-from whatever_disentangler import Disentangler, RemoteDisentangler
+from whatever_disentangler import whatever_disentangler as wd
 
 # this one is an offline disentangler:
-disentangler = Disentangler()
+disentangler = wd.Disentangler()
 disentangler.flatten_legibly(
   disentangler.disentangle(str_to_fix="боз▌з╤з╙з╤ б░з▄зтз╤Б0Ж3з▀Б0┌1! Б0┘5з╓зтзрз┴з▐ зуз▌з╤з╙з╤!", expected_str="Слава Україні! Героям слава!", recursivity_depth=2)
 )
 
 # and this one is remote: it calls a homemade REST API:
-remote_disentangler = RemoteDisentangler(endpoint='https://crac.ovh/fix_legacy_encoding')
+remote_disentangler = wd.RemoteDisentangler(endpoint='https://crac.ovh/fix_legacy_encoding')
 response_obj = await remote_disentangler.fetch_response(str_to_fix="ŢčŢ»ŢąŢ¦ ŢÓŢ¦Ţ®Ţ˘Ţ´Ţ·ŢµŢş! ŢčŢ»ŢąŢ¦ ŢąŢ¦ŢŔŢ°Ţ˘!", expected_str="Жыве Беларусь! Жыве вечна!", recursivity_depth=2)
 remote_disentangler.flatten_legibly(response_obj)
 ```
 
 To see `whatever_disentangler` in action,
 * have a look at [README.ipynb](https://github.com/kirisakow/whatever_disentangler/blob/main/README.ipynb)
-* play with the live HTTP API:
-  * https://crac.ovh/fix_legacy_encoding?str_to_fix=GocÅ‚awski&encoding_from=&encoding_to=&expected_str=Gocławski&recursivity_depth=
-  * https://crac.ovh/fix_legacy_encoding?str_to_fix=ÃƒÂ©chÃƒÂ©ancier&encoding_from=&encoding_to=&expected_str=échéancier&recursivity_depth=2
+* play with the [live HTTP API](https://github.com/kirisakow/api-py#examples-live)
