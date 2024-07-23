@@ -168,10 +168,10 @@ Run with -h (--help) option to print a complete help notice.
     parser.add_argument('--encoding-to', '--encoding_to', default=None, type=str, nargs='+',
                         help="(optional, default: all supported encodings) One or more of the encodings supported by Python. See https://docs.python.org/3/library/codecs.html#standard-encodings for details.")
 
-    parser.add_argument('--expected-str', '--expected_str', default=None, type=str, nargs=1,
+    parser.add_argument('--expected-str', '--expected_str', default=None, type=str,
                         help="(optional) What you expect the fixed string to look like. Adding this option narrows down the number of returned possibilities to those for which the result of `str_to_fix.encode(encoding_from).decode(encoding_to)` matches `expected_str`. The decoded strings matching `expected_str` are printed in green for better legibility in the output.")
 
-    parser.add_argument('--recursivity-depth', '--recursivity_depth', default=1, type=int, nargs=1,
+    parser.add_argument('--recursivity-depth', '--recursivity_depth', default=1, type=int,
                         help="(optional, default: %(default)s) If you are not satisfied with the result with every possible encoding (or your selection of encodings), set this option to 2, which will result in that every possible already decoded result will be treated as if it were `str_to_fix` and taken to another tour of every possible encoding (or your selection of encodings). This will result in more output, slower run time and, possibly, a crash (with `RecursionError: maximum recursion depth exceeded` or a `MemoryError: Stack overflow`), therefore use with caution for values 3 or higher.")
 
     args = parser.parse_args()
@@ -181,8 +181,8 @@ Run with -h (--help) option to print a complete help notice.
         str_to_fix=args.str_to_fix,
         encoding_from=args.encoding_from,
         encoding_to=args.encoding_to,
-        expected_str=args.expected_str[0],
-        recursivity_depth=args.recursivity_depth[0]
+        expected_str=args.expected_str,
+        recursivity_depth=args.recursivity_depth
     )
     try:
         disentangler.flatten_legibly(result_as_generator)
